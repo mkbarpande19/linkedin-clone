@@ -6,7 +6,7 @@ const HeaderOptions = ({ avatar, Icon, title}) => {
     return (
         <div className="headerOptions">
             {Icon && <Icon className="headerOptions_icon"/>}
-            {avatar && <Avatar className="headerOptions_icon" src={avatar}/>}
+            {avatar && <Avatar style ={{width:25, height:25}} className="headerOptions_icon" src={avatar}/>}
 
             <h3 className='headerOption_title'>{title}</h3>
         </div>
