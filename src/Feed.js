@@ -11,24 +11,25 @@ import { db } from "./firebase";
 import firebase from "firebase";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/user/userSlice";
-
+import FlipMove from "react-flip-move";
 
 const Feed = () => {
-  
   const [input, setInput] = useState(null);
   const [posts, setPosts] = useState([]);
 
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
-      setPosts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      );
-    });
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        );
+      });
   }, []);
 
   const sendPosts = (e) => {
@@ -38,8 +39,8 @@ const Feed = () => {
       name: user.displayName,
       description: user.email,
       message: input,
-      photoUrl: user.photoUrl || '',
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      photoUrl: user.photoUrl || "",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
     setInput("");
@@ -50,7 +51,11 @@ const Feed = () => {
         <div className="feed_input">
           <CreateIcon />
           <form>
-            <input value={input} onChange={(e)=>setInput(e.target.value)} type="text" />
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              type="text"
+            />
             <button onClick={sendPosts} type="submit">
               Send
             </button>
@@ -72,16 +77,17 @@ const Feed = () => {
           />
         </div>
       </div>
-      {posts.map(({id, data : {name, description, message, photoUrl}}) => (
-        <Posts 
+      <FlipMove>
+        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+          <Posts
             key={id}
             name={name}
             description={description}
             message={message}
             photourl={photoUrl}
-        />
-      ))}
-      
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 };
