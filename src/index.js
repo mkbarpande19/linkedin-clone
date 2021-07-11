@@ -1,21 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { store } from './app/store';
-import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
-import { ToastProvider } from 'react-toast-notifications';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { store } from "./app/store";
+import { Provider } from "react-redux";
+import * as serviceWorker from "./serviceWorker";
+import { ToastProvider } from "react-toast-notifications";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ToastProvider placement="top-center" newestOnTop={true} autoDismiss={true}>
     <Provider store={store}>
-      <App />
+      <ToastProvider
+        placement="top-center"
+        newestOnTop={true}
+        autoDismiss={true}
+      >
+        <App />
+      </ToastProvider>
     </Provider>
-    </ToastProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
