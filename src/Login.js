@@ -31,7 +31,7 @@ const Login = () => {
                 photoUrl:photoUrl
             }))
           })
-      }).catch(error=> console.log(error))
+      }).catch(error=> addToast(error, { appearance: 'error' }))
   };
 
   const loginfn = (e) => {
@@ -40,12 +40,12 @@ const Login = () => {
     auth.signInWithEmailAndPassword(email,password)
     .then(userAuth => {
       dispatch(login({
-        email: userAuth.user.enail,
+        email: userAuth.user.email,
         uid: userAuth.user.uid,
         displayName: userAuth.user.displayName,
         profileUrl: userAuth.user.photoUrl
       }))
-    }).catch(error=>console.log(error))
+    }).catch(error=>addToast(error, { appearance: 'error' }))
   };
   return (
     <div className="login">
