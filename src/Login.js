@@ -31,7 +31,7 @@ const Login = () => {
                 photoUrl:photoUrl
             }))
           })
-      }).catch(error=> console.log(error))
+      }).catch(error=> addToast(error, { appearance: 'error' }))
   };
 
   const loginfn = (e) => {
@@ -45,7 +45,7 @@ const Login = () => {
         displayName: userAuth.user.displayName,
         profileUrl: userAuth.user.photoUrl
       }))
-    }).catch(error=>console.log(error))
+    }).catch(error=>addToast(error, { appearance: 'error' }))
   };
   return (
     <div className="login">
