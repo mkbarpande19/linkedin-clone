@@ -9,15 +9,25 @@ import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ChatIcon from '@material-ui/icons/Chat';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import DefaultAvatar from './images/avatar.png';
+import { useDispatch } from 'react-redux';
+import { logout } from './features/user/userSlice';
+import { auth } from './firebase';
 
 const Header = () => {
+
+    const dispatch = useDispatch();
+
+    const logoutFunction = () =>{
+        dispatch(logout())
+        auth.signOut();
+    }
     return (
         <div className='header'>
             <div className='header_left'>
                 <img src={LinkedinIcon} alt=''/>
                 <div className='header_search'>
                     <SearchIcon/>
-                    <input type='text'/>
+                    <input placeholder="Search" type='text'/>
                 </div>
             </div>
             <div className='header_right'>
@@ -26,7 +36,7 @@ const Header = () => {
                 <HeaderOptions Icon = {BusinessCenterIcon} title = 'Jobs' />
                 <HeaderOptions Icon = {ChatIcon} title = 'Messaging' />
                 <HeaderOptions Icon = {NotificationsIcon} title='Notifications' />
-                <HeaderOptions avatar= {DefaultAvatar} title='Mayur Barpande' />
+                <HeaderOptions onClick={logoutFunction} avatar= {DefaultAvatar} title='Mayur Barpande' />
             </div>
         </div>
     )
